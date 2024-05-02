@@ -1,0 +1,1 @@
+This directory isused to store data from scripts
