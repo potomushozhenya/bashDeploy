@@ -26,7 +26,7 @@ while IFS= read -r line; do
     line=$(echo "$line" | sed 's/\r$//')
     name=$(echo ${line} | awk -F'/' '{print $5}')
     name=$(echo ${name} | awk -F'-' '{print $1}')
-    nameFile=$"{name}.osm.pbf"
+    nameFile=$"$name.osm.pbf"
     sudo wget -O $nameFile $line
     osm2pgsql -U $DB_USER -p name -l -d $DB_NAME $nameFile
 done < ../src/links.config
