@@ -13,7 +13,7 @@ dataDir=$(pwd)
 cd $baseDir
 sudo apt-get -y --allow-change-held-packages --allow-remove-essential update
 sudo apt -y --allow-change-held-packages --allow-remove-essential install postgis postgresql-14-postgis-3
-sudo apt install osm2pgsql
+sudo apt -y --allow-change-held-packages --allow-remove-essential install osm2pgsql
 fPath=$(sudo find /etc/postgresql -name 'pg_hba.conf')
 sudo sed -i -e 's/md5/trust/g' $fPath
 sudo sed -i -e 's/peer/trust/g' $fPath
@@ -28,5 +28,5 @@ while IFS= read -r line; do
     name=$(echo ${name} | awk -F'-' '{print $1}')
     nameFile=$"$name.osm.pbf"
     sudo wget -O $nameFile $line
-    osm2pgsql -U $DB_USER -p name -l -d $DB_NAME $nameFile
+    osm2pgsql -U $DB_USER -p $name -l -d $DB_NAME $nameFile
 done < ../src/links.config
